@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['poppins', 'sans-serif'],
-        'poppins-bold': ['poppins-bold', 'sans-serif'],
-        'poppins-black': ['poppins-black', 'sans-serif'],
+        main: ['poppins', 'sans-serif'],
+        'main-bold': ['poppins-bold', 'sans-serif'],
+        'main-black': ['poppins-black', 'sans-serif'],
       }
     },
   },
