@@ -1,8 +1,48 @@
 <script lang="ts">
   import './app.css';
+
+  // components
   import Topbar from './lib/Topbar.svelte';
   import Main from './lib/Main.svelte';
   import Footer from './lib/Footer.svelte';
+  import {onMount} from 'svelte';
+  import Snackbar from './lib/Snackbar.svelte';
+
+  // types
+  import type {SnackbarTypes} from './lib/Snackbar.svelte';
+
+  // variables
+  let userLocation: GeolocationPosition = null
+  let openSnackbar = false;
+  let snackbarProps: SnackbarTypes = {
+    description: '',
+    type: ''
+  };
+
+  const getGeoLocationHandle = (geolocation: GeolocationPosition) => {
+    userLocation = geolocation
+  };
+
+  const onGetLocationError = (error: GeolocationPositionError) => {
+    snackbarProps = {
+      description: error.message,
+      type: 'error'
+    };
+    openSnackbar = true;
+  };
+  console.log(userLocation)
+
+  onMount(async () => {
+    navigator.geolocation.getCurrentPosition(
+      getGeoLocationHandle,
+      onGetLocationError,
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      }
+    );
+  });
 </script>
 
 <main class="font-main">
@@ -18,4 +58,11 @@
       </div>
     </div>
   </div>
+
+  <Snackbar
+    open={openSnackbar}
+    onClose={() => (openSnackbar = !openSnackbar)}
+    description={snackbarProps.description}
+    type={snackbarProps.type}
+  />
 </main>
