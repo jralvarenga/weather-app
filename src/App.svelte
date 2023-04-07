@@ -20,6 +20,9 @@
     type: ''
   }
 
+  /**
+   * Handles getting user current location
+   */
   const getGeoLocationHandle = async (geolocation: GeolocationPosition) => {
     userLocation = geolocation
   }
@@ -54,8 +57,8 @@
       <div class="flex-1 bg-purple-200 p-5 rounded-3xl flex flex-col gap-2">
         <Topbar />
         {#if userLocation}
-          <Main userLocation={userLocation} />
-          <Footer userLocation={userLocation} />
+          <Main {userLocation} />
+          <Footer {userLocation} />
         {/if}
       </div>
     </div>

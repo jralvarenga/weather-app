@@ -18,7 +18,7 @@ declare module 'weather-app' {
     temp_min: number
   }
 
-  type WeatherDescription = {
+  export type WeatherDescription = {
     description: string
     icon: string
     id: number
@@ -70,6 +70,7 @@ declare module 'weather-app' {
     list: {
       clouds: WeatherClouds
       dt: number
+      dt_txt: string
       main: WeatherMain
       pop: number
       sys: {
