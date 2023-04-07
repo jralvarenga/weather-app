@@ -1,4 +1,21 @@
-<script></script>
+<script lang="ts">
+    import { onMount } from "svelte"
+    import type { FiveDaysForecast } from "weather-app"
+
+  export let userLocation: GeolocationPosition
+  let fiveDaysForecast: FiveDaysForecast
+
+  onMount(async () => {
+    const res = await fetch(
+      `${import.meta.env.VITE_OPEN_WEATHER_URL}/data/2.5/forecast?lat=${
+        userLocation.coords.latitude
+      }&lon=${userLocation.coords.longitude}&appid=${
+        import.meta.env.VITE_OPEN_WEATHER_API_KEY
+      }`
+    )
+    fiveDaysForecast = await res.json()
+  })
+</script>
 
 <div
   class="h-40 bg-white/30 backdrop-blur-xl rounded-2xl p-2 flex items-center justify-between gap-1"

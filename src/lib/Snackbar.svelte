@@ -1,27 +1,27 @@
 <script context="module" lang="ts">
   export type SnackbarTypes = {
-    description: string;
-    type: 'error' | 'success' | '';
-  };
+    description: string
+    type: 'error' | 'success' | ''
+  }
 </script>
 
 <script lang="ts">
-  import {onMount} from 'svelte';
+  import {onMount} from 'svelte'
 
   // variables
-  export let description: SnackbarTypes['description'];
-  export let type: SnackbarTypes['type'];
-  export let open: boolean = false;
-  export let onClose: () => void;
+  export let description: SnackbarTypes['description']
+  export let type: SnackbarTypes['type']
+  export let open: boolean = false
+  export let onClose: () => void
 
   /**
    * Handles close snackbar
-  */
+   */
   onMount(async () => {
     setTimeout(() => {
-      onClose();
-    }, 7000);
-  });
+      onClose()
+    }, 7000)
+  })
 </script>
 
 {#if open}

@@ -1,7 +1,7 @@
 <script>
-  import dayjs from 'dayjs';
+  import dayjs from 'dayjs'
 
-  let time = dayjs();
+  let time = dayjs()
 </script>
 
 <div class="w-full flex items-center justify-between text-sm">

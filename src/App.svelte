@@ -1,36 +1,36 @@
 <script lang="ts">
-  import './app.css';
+  import './app.css'
+  import type {WeatherInCoords} from 'weather-app'
 
   // components
-  import Topbar from './lib/Topbar.svelte';
-  import Main from './lib/Main.svelte';
-  import Footer from './lib/Footer.svelte';
-  import {onMount} from 'svelte';
-  import Snackbar from './lib/Snackbar.svelte';
+  import Topbar from './lib/Topbar.svelte'
+  import Main from './lib/Main.svelte'
+  import Footer from './lib/Footer.svelte'
+  import {onMount} from 'svelte'
+  import Snackbar from './lib/Snackbar.svelte'
 
   // types
-  import type {SnackbarTypes} from './lib/Snackbar.svelte';
+  import type {SnackbarTypes} from './lib/Snackbar.svelte'
 
   // variables
-  let userLocation: GeolocationPosition = null
-  let openSnackbar = false;
+  let userLocation: GeolocationPosition | null = null
+  let openSnackbar = false
   let snackbarProps: SnackbarTypes = {
     description: '',
     type: ''
-  };
+  }
 
-  const getGeoLocationHandle = (geolocation: GeolocationPosition) => {
+  const getGeoLocationHandle = async (geolocation: GeolocationPosition) => {
     userLocation = geolocation
-  };
+  }
 
   const onGetLocationError = (error: GeolocationPositionError) => {
     snackbarProps = {
       description: error.message,
       type: 'error'
-    };
-    openSnackbar = true;
-  };
-  console.log(userLocation)
+    }
+    openSnackbar = true
+  }
 
   onMount(async () => {
     navigator.geolocation.getCurrentPosition(
@@ -41,8 +41,8 @@
         timeout: 5000,
         maximumAge: 0
       }
-    );
-  });
+    )
+  })
 </script>
 
 <main class="font-main">
@@ -53,8 +53,10 @@
       <!-- content adding and bg -->
       <div class="flex-1 bg-purple-200 p-5 rounded-3xl flex flex-col gap-2">
         <Topbar />
-        <Main />
-        <Footer />
+        {#if userLocation}
+          <Main userLocation={userLocation} />
+          <Footer userLocation={userLocation} />
+        {/if}
       </div>
     </div>
   </div>
